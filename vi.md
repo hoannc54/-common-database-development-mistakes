@@ -174,17 +174,17 @@ Thêm vào đó, việc tiêu chuẩn hóa lại 1 cách cẩn thận và đư�
 - [Có thể chuẩn hóa không chuẩn](http://www.codinghorror.com/blog/archives/001152.html)
 - [Nguyên nhân các cuộc tranh luận chuẩn hóa cơ sở dữ liệu trên Coding Horror](http://highscalability.com/mother-all-database-normalization-debates-coding-horror)
 
-**11. Using exclusive arcs**
+**11. Sử dụng exclusive arcs**
 
-An exclusive arc is a common mistake where a table is created with two or more foreign keys where one and only one of them can be non-null.  **Big mistake.** For one thing it becomes that much harder to maintain data integrity. After all, even with referential integrity, nothing is preventing two or more of these foreign keys from being set (complex check constraints notwithstanding).
+Một exclusive arcs là một sai lầm phổ biến nơi một bảng được tạo ra với hai hoặc nhiều khóa ngoại nơi mà một và chỉ một trong số họ có thể không null.  **Sai lầm lớn.** với một điều nó trở nên khó khăn hơn nhiều để duy trì tính toàn vẹn dữ liệu.Sau tất cả, ngay cả với tính toàn vẹn tham chiếu, không có gì ngăn ngừa hai hoặc nhiều hơn các khóa ngoại được thiết lập (khó khăn kiểm tra phức tạp dù vẫn có).
 
-From [A Practical Guide to Relational Database Design](http://books.google.com.au/books?id=7ZAk0YiKQV0C&pg=PA110&lpg=PA110&dq=%22exclusive+arc%22+database&source=bl&ots=AyNPWsac__&sig=gBFIerXckQlVpRdd6ycI5JEgq3U&hl=en&ei=PzGzSZfrFcPVkAWWyZDZBA&sa=X&oi=book_result&resnum=1&ct=result):
+Từ [Hướng dẫn Thực tiễn về Thiết kế cơ sở dữ liệu quan hệ](http://books.google.com.au/books?id=7ZAk0YiKQV0C&pg=PA110&lpg=PA110&dq=%22exclusive+arc%22+database&source=bl&ots=AyNPWsac__&sig=gBFIerXckQlVpRdd6ycI5JEgq3U&hl=en&ei=PzGzSZfrFcPVkAWWyZDZBA&sa=X&oi=book_result&resnum=1&ct=result):
 
-> We have strongly advised against exclusive arc construction wherever possible, for the good reason that they can be awkward to write code and pose more maintenance difficulties.
+> Chúng tôi đã tư vấn mạnh mẽ chống lại việc xây dựng exclusive bất cứ khi nào có thể, vì lý do là có thể khó viết mã và gây ra nhiều khó khăn về bảo trì.
 
-**12. Not doing performance analysis on queries at all**
+**12. Không phân tích hiệu suất về các truy vấn ở tất cả**
 
-Pragmatism reigns supreme, particularly in the database world. If you're sticking to principles to the point that they've become a dogma then you've quite probably made mistakes. Take the example of the aggregate queries from above. The aggregate version might look "nice" but its performance is woeful. A performance comparison should've ended the debate (but it didn't) but more to the point: spouting such ill-informed views in the first place is ignorant, even dangerous.
+Chủ nghĩa thực dụng thống trị tối cao, đặc biệt là trong thế giới cơ sở dữ liệu. If you're sticking to principles to the point that they've become a dogma then you've quite probably made mistakes. Take the example of the aggregate queries from above. The aggregate version might look "nice" but its performance is woeful. A performance comparison should've ended the debate (but it didn't) but more to the point: spouting such ill-informed views in the first place is ignorant, even dangerous.
 
 **13. Over-reliance on UNION ALL and particularly UNION constructs**
 
