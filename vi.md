@@ -182,62 +182,62 @@ Từ [Hướng dẫn Thực tiễn về Thiết kế cơ sở dữ liệu quan 
 
 > Chúng tôi đã tư vấn mạnh mẽ chống lại việc xây dựng exclusive bất cứ khi nào có thể, vì lý do là có thể khó viết mã và gây ra nhiều khó khăn về bảo trì.
 
-**12. Không phân tích hiệu suất về các truy vấn ở tất cả**
+**12. Không phân tích hiệu suất về tất cả câu truy vấn**
 
-Chủ nghĩa thực dụng thống trị tối cao, đặc biệt là trong thế giới cơ sở dữ liệu. If you're sticking to principles to the point that they've become a dogma then you've quite probably made mistakes. Take the example of the aggregate queries from above. The aggregate version might look "nice" but its performance is woeful. A performance comparison should've ended the debate (but it didn't) but more to the point: spouting such ill-informed views in the first place is ignorant, even dangerous.
+Chủ nghĩa thực dụng thống trị tối cao, đặc biệt là trong thế giới cơ sở dữ liệu. Nếu bạn đang gắn bó với các nguyên tắc đến mức họ đã trở thành một tín điều thì bạn có lẽ đã mắc phải sai lầm. Lấy ví dụ của các truy vấn tổng hợp từ phía trên. Phiên bản tổng hợp có thể trông "đẹp" nhưng hiệu suất của nó là đáng buồn. Một sự so sánh về hiệu suất đáng nhẽ nên kết thúc cuộc tranh luận(nhưng không) nhưng nhiều hơn thế: đưa ra những tầm nhìn không đáng tin ở nơi đầu tiên thì thật nguy hiểm.
 
-**13. Over-reliance on UNION ALL and particularly UNION constructs**
+**13. Quá phụ thuộc vào UNION ALL và đặc biệt là cấu trúc UNION **
 
-A UNION in SQL terms merely concatenates congruent data sets, meaning they have the same type and number of columns. The difference between them is that UNION ALL is a simple concatenation and should be preferred wherever possible whereas a UNION will implicitly do a DISTINCT to remove duplicate tuples.
+Một UNION trong SQL chỉ đơn thuần nối các tập dữ liệu đồng nhất, có nghĩa là chúng có cùng kiểu và số cột. Sự khác biệt giữa chúng là UNION ALL đơn giản là một kết nối và được ưa thích bất cứ khi nào có thể, trong khi một UNION ngầm sẽ làm một DISTINCT để loại bỏ bản sao trùng lặp.
 
-UNIONs, like DISTINCT, have their place. There are valid applications. But if you find yourself doing a lot of them, particularly in subqueries, then you're probably doing something wrong. That might be a case of poor query construction or a poorly designed data model forcing you to do such things.
+UNIONs, như DISTINCT, đã được nói đến. Có các ứng dụng hợp lệ. Nhưng nếu bạn thấy mình đang làm rất nhiều, đặc biệt trong các truy vấn phụ, thì có thể bạn đang làm sai. Đó có thể là trường hợp xây dựng truy vấn kém hoặc mô hình dữ liệu được thiết kế kém buộc bạn phải làm những việc như vậys.
 
-UNIONs, particularly when used in joins or dependent subqueries, can cripple a database. Try to avoid them whenever possible.
+UNION, đặc biệt khi sử dụng trong các kết nối hoặc các truy vấn phụ phụ thuộc, có thể làm tê liệt cơ sở dữ liệu. Cố gắng tránh chúng bất cứ khi nào có thể.
 
-**14. Using OR conditions in queries**
+**14. Sử dùng điều kiện OR trong truy vấn**
 
-This might seem harmless. After all, ANDs are OK. OR should be OK too right? Wrong. Basically an AND condition **restricts** the data set whereas an OR condition **grows** it but not in a way that lends itself to optimisation. Particularly when the different OR conditions might intersect thus forcing the optimizer to effectively to a DISTINCT operation on the result.
+Chúng có vẻ vô hại. Nhưng sau tất cả, AND lại ổn. OR cũng nên được như vậy phải không? Sai rồi. Về cơ bản một điều kiện AND **hạn chế** dữ liệu cài đặt trong khi một điều kiện OR **kích thích** điều này nhưng không phải là cách để cho phép chúng tối ưu hóa. Đặc biệt khi các điều kiện OR khác nhau có thể giao cắt, do đó buộc trình tối ưu hóa có hiệu quả để một hoạt động DISTINCT trong kết quả.
 
-Bad:
+Tồi:
 
 ... WHERE a = 2 OR a = 5 OR a = 11
 
-Better:
+Tốt hơn:
 
 ... WHERE a IN (2, 5, 11)
 
-Now your SQL optimizer may effectively turn the first query into the second. But it might not. Just don't do it.
+Bây giờ, trình tối ưu hoá SQL của bạn có thể biến truy vấn đầu tiên thành thứ hai. Nhưng nó có thể không. Chỉ cần không làm điều đó.
 
-**15. Not designing their data model to lend itself to high-performing solutions**
+**15. Không thiết kế mô hình dữ liệu của mình để cho phép các giải pháp hiệu suất cao**
 
-This is a hard point to quantify. It is typically observed by its effect. If you find yourself writing gnarly queries for relatively simple tasks or that queries for finding out relatively straightforward information are not efficient, then you probably have a poor data model.
+Đây là một điểm khó để định lượng. Nó thường được quan sát bởi hiệu quả của nó. Nếu bạn thấy mình đang viết các truy vấn phức tạp cho các tác vụ tương đối đơn giản hoặc các truy vấn để tìm ra thông tin tương đối đơn giản không hiệu quả thì bạn có thể có một mô hình dữ liệu nghèo.
 
-In some ways this point summarizes all the earlier ones but it's more of a cautionary tale that doing things like query optimisation is often done first when it should be done second. First and foremost you should ensure you have a good data model before trying to optimize the performance. As Knuth said:
+Ở mức độ nào đó thì quan điểm này tóm tắt lại tất cả những điều ở trên nhưng đó cũng là một câu cảnh báo rằng làm những thứ như tối ưu truy vấn thường được xếp thứ nhất nhưng thực tế nó lại nên xếp thứ 2. Đầu tiên và trước hết bạn nên đảm bảo là bạn có một mô hình dữ liệu tốt trước khi cố gắng tối ưu hiệu suất. Như Knuth đã nói:
 
-> Premature optimization is the root of all evil
+> Tối ưu hóa sớm là gốc rễ của tất cả các điều rắc rối
 
-**16. Incorrect use of Database Transactions**
+**16. Sử dụng các giao dịch cơ sở dữ liệu không chính xác**
 
-All data changes for a specific process should be atomic. I.e. If the operation succeeds, it does so fully. If it fails, the data is left unchanged. - There should be no possibility of 'half-done' changes.
+Tất cả các dữ liệu thay đổi cho một quá trình cụ thể phải là nguyên tử. I E. Nếu hoạt động thành công, nó sẽ làm đầy đủ. Nếu không thành công, dữ liệu sẽ không thay đổi. - Không nên có những thay đổi "nửa đã hoàn thành".
 
-Ideally, the simplest way to achieve this is that the entire system design should strive to support all data changes through single INSERT/UPDATE/DELETE statements. In this case, no special transaction handling is needed, as your database engine should do so automatically.
+Lý tưởng nhất, cách đơn giản nhất để đạt được điều này là toàn bộ thiết kế hệ thống nên cố gắng hỗ trợ tất cả các thay đổi dữ liệu thông qua các câu lệnh INSERT / UPDATE / DELETE. Trong trường hợp này, không có xử lý giao dịch đặc biệt là cần thiết, như động cơ cơ sở dữ liệu của bạn nên làm như vậy tự động.
 
-However, if any processes do require multiple statements be performed as a unit to keep the data in a consistent state, then appropriate Transaction Control is necessary.
+Tuy nhiên, nếu bất kỳ quy trình nào yêu cầu nhiều lệnh được thực hiện như một đơn vị để giữ dữ liệu ở trạng thái nhất quán, thì cần điều khiển giao dịch thích hợp.
 
-- Begin a Transaction before the first statement.
-- Commit the Transaction after the last statement.
-- On any error, Rollback the Transaction. And very NB! Don't forget to skip/abort all statements that follow after the error.
+- Bắt đầu Giao dịch trước câu lệnh đầu tiên.
+- Cam kết Giao dịch sau câu lệnh cuối cùng.
+- Trong bất kì hoàn cảnh nào, hãy phục hồi giao dịch. Đừng quên skip/abort tất cả câu lệnh theo lỗi đó.
 
-Also recommended to pay careful attention to the subtelties of how your database connectivity layer, and database engine interact in this regard. 
+Cũng nên chú ý cẩn thận đến các subtelties của lớp kết nối cơ sở dữ liệu của bạn, và công cụ cơ sở dữ liệu tương tác trong vấn đề này.. 
 
-**17. Not understanding the 'set-based' paradigm**
+**17. Không hiểu mô hình 'set-based'**
 
-The SQL language follows a specific paradigm suited to specific kinds of problems. Various vendor-specific extensions notwithstanding, the language struggles to deal with problems that are trivial in langues like Java, C#, Delphi etc.
+Ngôn ngữ SQL tuân theo một mô hình phù hợp với từng trường hợp cụ thể. Hàng tá các vendor-specific extension là khác nhau, ngôn ngữ này phải vất vả để giải quyết các vấn đề tầm thường trong ngôn ngữ langues như Java, C #, Delphi.
 
-This lack of understanding manifests itself in a few ways.
+Sự thiếu hiểu biết này thể hiện theo một vài cách.
 
-- Inappropriately imposing too much procedural or imperative logic on the databse.
-- Inappropriate or excessive use of cursors. Especially when a single query would suffice.
-- Incorrectly assuming that triggers fire once per row affected in multi-row updates.
+- Áp dụng không chính đáng quá nhiều quy tắc hoặc bắt buộc trên vùng dữ liệu.
+- Việc sử dụng không phù hợp hoặc quá mức các con trỏ. Đặc biệt là khi một truy vấn đơn là đủ.
+- Giả định không đúng kích hoạt một lần mỗi hàng bị ảnh hưởng trong cập nhật nhiều hàng.
 
-Determine clear division of responsibility, and strive to use the appropriate tool to solve each problem.
+Xác định phân chia trách nhiệm rõ ràng và cố gắng sử dụng công cụ thích hợp để giải quyết từng vấn đề.
