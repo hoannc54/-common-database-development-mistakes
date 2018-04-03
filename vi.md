@@ -137,42 +137,42 @@ Sử dụng các câu lệnh chuẩn bị cũng sẽ cung cấp cho bạn số l
 
 Các câu lệnh được chuẩn bị cũng bảo vệ bạn tốt hơn với cách tấn công SQL injection.
 
-**9. Not normalizing enough**
+**9. Không đủ chuẩn hóa**
 
-[Database normalization](http://en.wikipedia.org/wiki/Database_normalization) is basically the process of optimizing database design or how you organize your data into tables.
+[Chuẩn hóa cơ sở dữ liệu](http://en.wikipedia.org/wiki/Database_normalization) về cơ bản là quá trình tối ưu hóa thiết kế cơ sở dữ liệu hoặc cách bạn tổ chức dữ liệu của bạn vào các bảng.
 
-Just this week I ran across some code where someone had imploded an array and inserted it into a single field in a database. Normalizing that would be to treat element of that array as a separate row in a child table (ie a one-to-many relationship).
+ Tuần này tôi bắt gặp code của ai đó mà họ tách 1 mảng ra và thêm chúng vào 1 trường đơn lẻ trong 1 cơ sở dữ liệu. Quả trình chuẩn hóa nên là coi các phần tử của mảng như là 1 dòng riêng biệt trong bảng con (ví dụ quan hệ một-nhiều) .
 
-This also came up in [Best method for storing a list of user IDs](https://stackoverflow.com/questions/620645/best-method-for-storing-a-list-of-user-ids):
+Điều này cũng xuất hiện trong [Phương pháp tốt nhất để lưu trữ user IDs](https://stackoverflow.com/questions/620645/best-method-for-storing-a-list-of-user-ids):
 
-> I've seen in other systems that the list is stored in a serialized PHP array.
+> Tôi đã nhìn thấy trong các hệ thống khác mà danh sách được lưu trữ trong một mảng PHP tuần tự.
 
-But lack of normalization comes in many forms.
+Tuy nhiên, sự thiếu chuẩn hóa lại có nhiều hình thức.
 
-More:
+Thêm:
 
-- [Normalization: How far is far enough?](http://www.techrepublic.com/article/normalization-how-far-is-far-enough/)
-- [SQL by Design: Why You Need Database Normalization ](http://www.sqlmag.com/Article/ArticleID/4887/sql_server_4887.html)
+- [Normalization: Bao nhiêu thì đủ?](http://www.techrepublic.com/article/normalization-how-far-is-far-enough/)
+- [SQL qua Design: Tại sao bạn cần phải chuẩn hóa cơ sở dữ liệu ](http://www.sqlmag.com/Article/ArticleID/4887/sql_server_4887.html)
 
-**10. Normalizing too much**
+**10. Chuẩn hóa quá nhiều**
 
-This may seem like a contradiction to the previous point but normalization, like many things, is a tool. It is a means to an end and not an end in and of itself. I think many developers forget this and start treating a "means" as an "end". Unit testing is a prime example of this.
+Điều này có vẻ như mâu thuẫn với điểm trước nhưng như nhiều thứ khá, chuẩn hóa là một công cụ. Nó sẽ chẳng có một điểm kết thúc cụ thể nào cả. Tôi nghĩ rằng nhiều nhà phát triển quên điều này và bắt đầu coi một "công cụ" như là một "kết thúc".Kiểm thử đơn vị là một ví dụ cơ bản cho điều này.
 
-I once worked on a system that had a huge hierarchy for clients that went something like:
+Tôi đã từng làm việc trên một hệ thống có một hệ thống phân cấp rất lớn cho khách hàng mà đã gặp một điều gì đó như:
 
 Licensee -&gt;  Dealer Group -&gt; Company -&gt; Practice -&gt; ...
 
-such that you had to join about 11 tables together before you could get any meaningful data. It was a good example of normalization taken too far.
+như vậy bạn phải tham gia cùng với khoảng 11 bảng với nhau trước khi bạn có thể có được bất kỳ dữ liệu có ý nghĩa. Đó là một ví dụ điển hình về quá trình bình chuẩn hóa quá nhiều.
 
-More to the point, careful and considered denormalization can have huge performance benefits but you have to be really careful when doing this.
+Thêm vào đó, việc tiêu chuẩn hóa lại 1 cách cẩn thận và được lưu tâm có thể mang lại những lợi ích đáng kể nhưng bạn phải thực sự cẩn thận khi làm điều này.
 
-More:
+Đọc thêm:
 
-- [Why too much Database Normalization can be a Bad Thing](http://www.selikoff.net/blog/2008/11/19/why-too-much-database-normalization-can-be-a-bad-thing/)
-- [How far to take normalization in database design?](https://stackoverflow.com/questions/496508/how-far-to-take-normalization-in-database-design)
-- [When Not to Normalize your SQL Database](http://www.25hoursaday.com/weblog/CommentView.aspx?guid=cc0e740c-a828-4b9d-b244-4ee96e2fad4b)
-- [Maybe Normalizing Isn't Normal](http://www.codinghorror.com/blog/archives/001152.html)
-- [The Mother of All Database Normalization Debates on Coding Horror](http://highscalability.com/mother-all-database-normalization-debates-coding-horror)
+- [Tại sao chuẩn hóa quá nhiều cơ sở dữ liều là một điều tồi](http://www.selikoff.net/blog/2008/11/19/why-too-much-database-normalization-can-be-a-bad-thing/)
+- [Làm thế nào để có chuẩn hóa trong thiết kế cơ sở dữ liệu?](https://stackoverflow.com/questions/496508/how-far-to-take-normalization-in-database-design)
+- [KHi không chuẩn hóa cơ sở dữ liệu SQL của bạn](http://www.25hoursaday.com/weblog/CommentView.aspx?guid=cc0e740c-a828-4b9d-b244-4ee96e2fad4b)
+- [Có thể chuẩn hóa không chuẩn](http://www.codinghorror.com/blog/archives/001152.html)
+- [Nguyên nhân các cuộc tranh luận chuẩn hóa cơ sở dữ liệu trên Coding Horror](http://highscalability.com/mother-all-database-normalization-debates-coding-horror)
 
 **11. Using exclusive arcs**
 
