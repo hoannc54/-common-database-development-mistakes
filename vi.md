@@ -137,7 +137,7 @@ Sử dụng các câu lệnh chuẩn bị cũng sẽ cung cấp cho bạn số l
 
 Các câu lệnh được chuẩn bị cũng bảo vệ bạn tốt hơn với cách tấn công SQL injection.
 
-**9. Không đủ chuẩn hóa**
+**9. Không chuẩn hóa đủ**
 
 [Chuẩn hóa cơ sở dữ liệu](http://en.wikipedia.org/wiki/Database_normalization) về cơ bản là quá trình tối ưu hóa thiết kế cơ sở dữ liệu hoặc cách bạn tổ chức dữ liệu của bạn vào các bảng.
 
@@ -182,7 +182,7 @@ Từ [Hướng dẫn Thực tiễn về Thiết kế cơ sở dữ liệu quan 
 
 > Chúng tôi đã tư vấn mạnh mẽ chống lại việc xây dựng exclusive bất cứ khi nào có thể, vì lý do là có thể khó viết mã và gây ra nhiều khó khăn về bảo trì.
 
-**12. Không phân tích hiệu suất về tất cả câu truy vấn**
+**12. Không phân tích hiệu năng về tất cả câu truy vấn**
 
 Chủ nghĩa thực dụng thống trị tối cao, đặc biệt là trong thế giới cơ sở dữ liệu. Nếu bạn đang gắn bó với các nguyên tắc đến mức họ đã trở thành một tín điều thì bạn có lẽ đã mắc phải sai lầm. Lấy ví dụ của các truy vấn tổng hợp từ phía trên. Phiên bản tổng hợp có thể trông "đẹp" nhưng hiệu suất của nó là đáng buồn. Một sự so sánh về hiệu suất đáng nhẽ nên kết thúc cuộc tranh luận(nhưng không) nhưng nhiều hơn thế: đưa ra những tầm nhìn không đáng tin ở nơi đầu tiên thì thật nguy hiểm.
 
@@ -190,9 +190,9 @@ Chủ nghĩa thực dụng thống trị tối cao, đặc biệt là trong th�
 
 Một UNION trong SQL chỉ đơn thuần nối các tập dữ liệu đồng nhất, có nghĩa là chúng có cùng kiểu và số cột. Sự khác biệt giữa chúng là UNION ALL đơn giản là một kết nối và được ưa thích bất cứ khi nào có thể, trong khi một UNION ngầm sẽ làm một DISTINCT để loại bỏ bản sao trùng lặp.
 
-UNIONs, như DISTINCT, đã được nói đến. Có các ứng dụng hợp lệ. Nhưng nếu bạn thấy mình đang làm rất nhiều, đặc biệt trong các truy vấn phụ, thì có thể bạn đang làm sai. Đó có thể là trường hợp xây dựng truy vấn kém hoặc mô hình dữ liệu được thiết kế kém buộc bạn phải làm những việc như vậys.
+Các UNION, như DISTINCT, đã được nói đến. Có các ứng dụng hợp lệ. Nhưng nếu bạn thấy mình đang làm rất nhiều, đặc biệt trong các truy vấn phụ, thì có thể bạn đang làm sai. Đó có thể là trường hợp xây dựng truy vấn kém hoặc mô hình dữ liệu được thiết kế kém buộc bạn phải làm những việc như vậys.
 
-UNION, đặc biệt khi sử dụng trong các kết nối hoặc các truy vấn phụ phụ thuộc, có thể làm tê liệt cơ sở dữ liệu. Cố gắng tránh chúng bất cứ khi nào có thể.
+Các UNION, đặc biệt khi sử dụng trong các kết nối hoặc các truy vấn phụ phụ thuộc, có thể làm tê liệt cơ sở dữ liệu. Cố gắng tránh chúng bất cứ khi nào có thể.
 
 **14. Sử dùng điều kiện OR trong truy vấn**
 
@@ -220,7 +220,7 @@ Bây giờ, trình tối ưu hoá SQL của bạn có thể biến truy vấn đ
 
 Tất cả các dữ liệu thay đổi cho một quá trình cụ thể phải là nguyên tử. I E. Nếu hoạt động thành công, nó sẽ làm đầy đủ. Nếu không thành công, dữ liệu sẽ không thay đổi. - Không nên có những thay đổi "nửa đã hoàn thành".
 
-Lý tưởng nhất, cách đơn giản nhất để đạt được điều này là toàn bộ thiết kế hệ thống nên cố gắng hỗ trợ tất cả các thay đổi dữ liệu thông qua các câu lệnh INSERT / UPDATE / DELETE. Trong trường hợp này, không có xử lý giao dịch đặc biệt là cần thiết, như động cơ cơ sở dữ liệu của bạn nên làm như vậy tự động.
+Lý tưởng nhất, cách đơn giản nhất để đạt được điều này là toàn bộ thiết kế hệ thống nên cố gắng hỗ trợ tất cả các thay đổi dữ liệu thông qua các câu lệnh đơn INSERT / UPDATE / DELETE. Trong trường hợp này, không có xử lý giao dịch đặc biệt là cần thiết, như một cơ cơ sở dữ liệu của bạn nên làm như vậy tự động.
 
 Tuy nhiên, nếu bất kỳ quy trình nào yêu cầu nhiều lệnh được thực hiện như một đơn vị để giữ dữ liệu ở trạng thái nhất quán, thì cần điều khiển giao dịch thích hợp.
 
